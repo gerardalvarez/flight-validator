@@ -23,7 +23,7 @@ public class FlightController {
     //public @ResponseBody String validateFlight(@RequestBody Flight flight) {
     public @ResponseBody String validateFlight() {
         // Call the FlightValidationService to check if the flight is feasible
-        Flight f = new Flight("123X", LocalTime.of(12,12,12),200,100,100,200,200);
+        Flight f = new Flight("123X", LocalTime.of(12,12,12),200,100,190,200,200);
         boolean isValid = flightValidationService.isFeasible(f);
 
         // Return a response based on the validation result

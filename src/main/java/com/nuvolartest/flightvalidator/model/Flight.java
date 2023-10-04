@@ -1,5 +1,7 @@
 package com.nuvolartest.flightvalidator.model;
 
+import com.nuvolartest.flightvalidator.util.Haversine;
+
 import java.time.LocalTime;
 
 public class Flight {
@@ -82,4 +84,17 @@ public class Flight {
     public void setArrivalLongitude(double arrivalLongitude) {
         this.arrivalLongitude = arrivalLongitude;
     }
+
+    public int calculateFlightRange() {
+        double distance = Haversine.getDistance(
+                this.getDepartureLatitude(),
+                this.getDepartureLongitude(),
+                this.getArrivalLatitude(),
+                this.getArrivalLongitude()
+        );
+
+        return (int) distance; // Assuming flight range is in kilometers
+    }
+
+
 }
