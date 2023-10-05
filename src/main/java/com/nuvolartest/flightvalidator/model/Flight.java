@@ -15,6 +15,10 @@ public class Flight {
     private double arrivalLongitude;
 
 
+    public Flight() {
+        // No-args constructor
+    }
+
     public Flight(String flightNumber) {
         this.flightNumber = flightNumber;
     }
