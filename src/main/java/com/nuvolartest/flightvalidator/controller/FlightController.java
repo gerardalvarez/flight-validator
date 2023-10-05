@@ -1,6 +1,7 @@
 package com.nuvolartest.flightvalidator.controller;
 
 
+import com.nuvolartest.flightvalidator.dto.ValidationResult;
 import com.nuvolartest.flightvalidator.model.Flight;
 import com.nuvolartest.flightvalidator.service.FlightValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,12 @@ public class FlightController {
         this.flightValidationService = flightValidationService;
     }
 
-    @PostMapping("/resources")
-    public ResponseEntity<Map<String, Object>> validateFlight(@RequestBody Flight flight) {
-        // Process the form data here and return a JSON response
-        boolean isValid = flightValidationService.isFeasible(flight);
-
+    @PostMapping("/validate")
+    public @ResponseBody ResponseEntity<Map<String, Object>> validateFlight(@RequestBody Flight flight) {
+        ValidationResult validationResult = flightValidationService.isFeasible(flight);
         Map<String, Object> response = new HashMap<>();
-        if (isValid) {
-            response.put("message", "The flight is valid and feasible.");
-        } else {
-            response.put("message", "The flight is not feasible.");
-        }
+        response.put("isValid", validationResult.isValid());
+        response.put("errorMessages", validationResult.getErrorMessages());
 
         return ResponseEntity.ok(response);
     }

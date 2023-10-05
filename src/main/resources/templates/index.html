@@ -4,10 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Validation</title>
+    <style>
+        body {
+            background-color: #3498db; /* Blue background color */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin-top: 20px;
+        }
+
+        #container {
+            background-color: #ffffff; /* White container background */
+            padding: 40px;
+            border-radius: 10px;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #3498db; /* Blue button color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .success {
+            color: #27ae60; /* Green success message */
+        }
+
+        .error {
+            color: #e74c3c; /* Red error message */
+        }
+
+        .plane-image {
+            max-width: 20%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
 <h1>Flight Validation</h1>
-<form id="flightForm">
+<div id="container">
+    <img class="plane-image" src="https://icons-for-free.com/iconfiles/png/512/airplane-1320568631027772376.png" alt="Plane Image">
+    <form id="flightForm">
     <label for="flightNumber">Flight Number:</label>
     <input type="text" id="flightNumber" name="flightNumber" required><br><br>
 
@@ -53,7 +124,7 @@
             };
 
             // Make an asynchronous POST request to your API
-            fetch('/api/resources', {
+            fetch('/api/validate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,11 +133,17 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // Display the result in the resultDiv
-                    resultDiv.innerHTML = data.message;
+                    if (data.isValid) {
+                        // Display success message
+                        resultDiv.innerHTML = `<p class="success">The flight is valid and feasible</p>`;
+                    } else {
+                        // Display error messages
+                        const errorMessages = data.errorMessages.join('<br>');
+                        resultDiv.innerHTML = `<p class="error">${errorMessages}</p>`;
+                    }
 
                     // Clear the form
-                    form.reset();
+
                 })
                 .catch(error => {
                     console.error('Error:', error);
