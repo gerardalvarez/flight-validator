@@ -1,5 +1,6 @@
 package com.nuvolartest.flightvalidator.service;
 
+import com.nuvolartest.flightvalidator.enums.ValidationRule;
 import com.nuvolartest.flightvalidator.exception.FlightValidationException;
 import com.nuvolartest.flightvalidator.model.Flight;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,11 +23,11 @@ public class KilometersValidationService {
         int distance = flight.calculateFlightRange();
         if (flight.getNumberOfPassengers() > maxPassengerCount) {
             if (distance > maxPassengerReducedRange) {
-                errorMessages.add("Exceeded passenger-reduced range.");
+                errorMessages.add(ValidationRule.MAX_KILOMETERS_PASSENGERS.getErrorMessage());
             }
         }
         if (distance > maxFlightRange) {
-            errorMessages.add("Exceeded maximum flight range.");
+            errorMessages.add(ValidationRule.MAX_KILOMETERS.getErrorMessage());
         }
 
         if (!errorMessages.isEmpty()) {

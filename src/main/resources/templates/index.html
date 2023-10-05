@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight Validation</title>
+    <title>Flight Validation for Nuvolar</title>
     <style>
         body {
             background-color: #3498db; /* Blue background color */
             font-family: Arial, sans-serif;
             text-align: center;
+            margin-top: 100px;
         }
 
         h1 {
@@ -75,7 +76,7 @@
     </style>
 </head>
 <body>
-<h1>Flight Validation</h1>
+<h1>Flight Validation for Nuvolar</h1>
 <div id="container">
     <img class="plane-image" src="https://icons-for-free.com/iconfiles/png/512/airplane-1320568631027772376.png" alt="Plane Image">
     <form id="flightForm">
@@ -135,18 +136,19 @@
                 .then(data => {
                     if (data.isValid) {
                         // Display success message
-                        resultDiv.innerHTML = `<p class="success">The flight is valid and feasible</p>`;
+                        resultDiv.innerHTML = `<p class="success"><strong>The flight is valid and feasible</strong></p>`;
                     } else {
                         // Display error messages
-                        const errorMessages = data.errorMessages.join('<br>');
-                        resultDiv.innerHTML = `<p class="error">${errorMessages}</p>`;
+                        const errorMessages = data.errorMessages.join('<br><br>');
+                        resultDiv.innerHTML = `<p class="error"><strong>The flight is not feasible. Reasons:</strong><br><br>${errorMessages}</p>`;
                     }
 
                     // Clear the form
 
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.log(error);
+                    resultDiv.innerHTML = `<p class="error">The Latitude or Longitude fields have been entered incorrectly. Please check your input. </p>`;
                 });
         });
     });

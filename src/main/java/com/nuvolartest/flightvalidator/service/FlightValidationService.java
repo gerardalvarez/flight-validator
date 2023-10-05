@@ -37,7 +37,7 @@ public class FlightValidationService {
             result.setValid(false);
             String[] errorMessages = ex.getMessage().split("\\|");
             for (String error : errorMessages) {
-                result.addErrorMessage("Rule 1: " + error);
+                result.addErrorMessage(error);
             }
         }
 
@@ -47,7 +47,7 @@ public class FlightValidationService {
             result.setValid(false);
             String[] errorMessages = ex.getMessage().split("\\|");
             for (String error : errorMessages) {
-                result.addErrorMessage("Rule 2: " + error);
+                result.addErrorMessage(error);
             }
         }
 
@@ -57,7 +57,7 @@ public class FlightValidationService {
             result.setValid(false);
             String[] errorMessages = ex.getMessage().split("\\|");
             for (String error : errorMessages) {
-                result.addErrorMessage("Rule 3: " + error);
+                result.addErrorMessage(error);
             }
         }
 

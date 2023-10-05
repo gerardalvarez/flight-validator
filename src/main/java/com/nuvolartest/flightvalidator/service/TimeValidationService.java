@@ -1,5 +1,6 @@
 package com.nuvolartest.flightvalidator.service;
 
+import com.nuvolartest.flightvalidator.enums.ValidationRule;
 import com.nuvolartest.flightvalidator.exception.FlightValidationException;
 import com.nuvolartest.flightvalidator.model.Flight;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,11 +27,11 @@ public class TimeValidationService {
         int distance = flight.calculateFlightRange();
         LocalTime takeoff = flight.getTakeoffTime();
         if (takeoff.isAfter(eveningTakeoffTime)){
-            errorMessages.add("Exceeded takeoff time limit.");
+            errorMessages.add(ValidationRule.TAKEOFF_TIME.getErrorMessage());
         }
         if (takeoff.isAfter(afternoonTakeoffTime)) {
             if (distance > maxFlightRange) {
-                errorMessages.add("Exceeded maximum flight range after 2 pm.");
+                errorMessages.add(ValidationRule.FLIGHT_RANGE_TIME.getErrorMessage());
             }
         }
         if (!errorMessages.isEmpty()) {
