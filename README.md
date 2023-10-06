@@ -60,7 +60,7 @@ To use this application, follow these steps:
 -  This application provides feedback on whether a flight is feasible based on the defined rules.
 - The rules may change in the future, so the application is designed to be flexible and easily adaptable.
 - This implementation is designed to independently check all the rules, providing comprehensive feedback even if one rule is already violated or if one rule implies another. It ensures that all relevant information is presented to the user for a complete evaluation of the flight's feasibility.
-- Testing is not implemented beacuse is has not been explicitly mentioned in the email instructions, but it's worth noting that the application's design allows for easy integration of testing (unit & integration).
+- Testing is not implemented beacuse is has not been explicitly mentioned in the email instructions, but it's worth noting that the application's design allows for easy integration of testing (unit & integration). (I made one as an example)
 
 ## Contact
 
