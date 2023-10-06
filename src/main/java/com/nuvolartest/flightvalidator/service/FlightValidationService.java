@@ -22,6 +22,13 @@ public class FlightValidationService {
         this.westValidationService = westValidationService;
     }
 
+    private void handleValidationException(FlightValidationException ex, ValidationResult result) {
+        result.setValid(false);
+        String[] errorMessages = ex.getMessage().split("\\|");
+        for (String error : errorMessages) {
+            result.addErrorMessage(error);
+        }
+    }
 
     // Validate without blocking other rules even if errors occur.
     // I follow this approach to ensure that all validation rules are checked, even when some rules imply others
@@ -34,31 +41,19 @@ public class FlightValidationService {
         try {
             kilometersValidationService.validateMaxKm(flight);
         } catch (FlightValidationException ex) {
-            result.setValid(false);
-            String[] errorMessages = ex.getMessage().split("\\|");
-            for (String error : errorMessages) {
-                result.addErrorMessage(error);
-            }
+            handleValidationException(ex, result);
         }
 
         try {
             timeValidationService.validateTakeoffTime(flight);
         } catch (FlightValidationException ex) {
-            result.setValid(false);
-            String[] errorMessages = ex.getMessage().split("\\|");
-            for (String error : errorMessages) {
-                result.addErrorMessage(error);
-            }
+            handleValidationException(ex, result);
         }
 
         try {
             westValidationService.validateWestFlights(flight);
         } catch (FlightValidationException ex) {
-            result.setValid(false);
-            String[] errorMessages = ex.getMessage().split("\\|");
-            for (String error : errorMessages) {
-                result.addErrorMessage(error);
-            }
+            handleValidationException(ex, result);
         }
 
         return result;
